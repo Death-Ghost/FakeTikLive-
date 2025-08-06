@@ -5,7 +5,7 @@ workflows:
     environment:
       xcode: latest
       vars:
-        XCODE_WORKSPACE: ""
+        # XCODE_WORKSPACE: ""  <-- la quitamos porque usas .xcodeproj
         XCODE_SCHEME: "FakeTikLive"
     scripts:
       - name: Set up project
