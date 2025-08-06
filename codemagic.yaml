@@ -1,0 +1,32 @@
+workflows:
+  ios-workflow:
+    name: Build iOS App
+    max_build_duration: 20
+    environment:
+      xcode: latest
+      vars:
+        XCODE_WORKSPACE: ""
+        XCODE_SCHEME: "FakeTikLive"
+    scripts:
+      - name: Set up project
+        script: |
+          echo "✅ Proyecto cargado"
+
+      - name: Build .ipa
+        script: |
+          xcodebuild clean build \
+            -project FakeTikLive.xcodeproj \
+            -scheme FakeTikLive \
+            -sdk iphoneos \
+            -configuration Release \
+            -derivedDataPath build
+
+      - name: Export .ipa
+        script: |
+          xcodebuild -exportArchive \
+            -archivePath build/Build/Products/Release-iphoneos/FakeTikLive.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath build/ipa
+
+    artifacts:
+      - build/ipa/*.ipa
